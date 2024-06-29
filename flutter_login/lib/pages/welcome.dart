@@ -42,7 +42,7 @@ class Welcome extends StatelessWidget {
                       height: 33,
                     ),
                     SvgPicture.asset(
-                      "assets/icons/chat.svg",
+                      "assets/icons/signup.svg",
                       width: 300,
                     ),
                     SizedBox(

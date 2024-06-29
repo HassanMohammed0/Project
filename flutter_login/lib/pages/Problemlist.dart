@@ -5,7 +5,6 @@ import 'package:flutter/widgets.dart';
 class ProblemList extends StatelessWidget {
   ProblemList({super.key});
 
-
   List<String> difficulties = [
     "Beginner",
     "Easy",
@@ -22,28 +21,36 @@ class ProblemList extends StatelessWidget {
 
   List testProblems = [
     {
-      "title": "Seagull Snapshot Festival Obsession",
-      "des": "Seagull Snapshot Festival Obsession Seagull Snapshot Festival Obsession",
+      "title": "Two Sum",
+      "des": "Given an array of integers nums and an integer target, return indices of the two numbers such that they add up to target.",
       "diff": 0,
     },
     {
-      "title": "Basics 08: Find next higher number with same Bits (1's)",
-      "des": "Basics 08: Find next higher number with same Bits (1's) Basics 08: Find next higher number with same Bits (1's)",
+      "title": "Reverse Linked List",
+      "des": "Given the head of a singly linked list, reverse the list, and return the reversed list.",
       "diff": 2,
     },
     {
-      "title": "Check the exam",
-      "des": "Check the exam Check the exam Check the exam Check the exam",
+      "title": "Merge K Sorted Lists",
+      "des": "You are given an array of k linked-lists lists, each linked-list is sorted in ascending order. Merge all the linked-lists into one sorted linked-list and return it.",
+      "diff": 1,
+    },
+    {
+      "title": "Valid Parentheses",
+      "des": "Given a string s containing just the characters '(', ')', '{', '}', '[' and ']', determine if the input string is valid.",
       "diff": 3,
     },
   ];
+
   @override
   Widget build(BuildContext context) {
     return SafeArea(
       child: ListView.builder(
         itemCount: testProblems.length,
         itemBuilder: (context, index) => GestureDetector(
-          onTap: () {},
+          onTap: () {
+            Navigator.pushNamed(context, "/codetry");
+          },
           child: Container(
             margin: EdgeInsets.symmetric(vertical: 8, horizontal: 16),
             padding: EdgeInsets.symmetric(vertical: 8, horizontal: 16),
@@ -80,7 +87,10 @@ class ProblemList extends StatelessWidget {
                       color: difficultiesColors[testProblems[index]["diff"]],
                       borderRadius: BorderRadius.circular(5),
                     ),
-                    child: Text(difficulties[testProblems[index]["diff"]], style: const TextStyle(color: Colors.white),),
+                    child: Text(
+                      difficulties[testProblems[index]["diff"]],
+                      style: const TextStyle(color: Colors.white),
+                    ),
                   ),
                 ),
               ],

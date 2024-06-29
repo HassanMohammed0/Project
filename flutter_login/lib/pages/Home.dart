@@ -4,7 +4,6 @@ import 'package:flutter_login/pages/Problemlist.dart';
 import 'package:flutter_login/pages/codeTry.dart';
 import 'package:flutter_login/pages/learn.dart';
 import 'package:flutter_login/pages/profile.dart';
-import 'package:flutter_svg/flutter_svg.dart';
 
 class Home extends StatefulWidget {
   const Home({super.key});
@@ -35,91 +34,72 @@ class _HomeState extends State<Home> {
   Widget build(BuildContext context) {
     return Scaffold(
       drawer: Drawer(
-        backgroundColor: Colors.green,
+        backgroundColor: Color(0xFF0F1929),
         child: SafeArea(
           child: Column(
             children: [
               Container(
-                child: Column(children: [CircleAvatar(backgroundImage: AssetImage("assets/images/profile.png") ,radius:50,)]),
+                child: Column(children: [CircleAvatar(backgroundImage: AssetImage("assets/images/profile.png"), radius: 50,)]),
               ),
               ListTile(
-                leading: Icon(Icons.settings),
-                title: Text("Settings"),
-                
+                leading: Icon(Icons.settings, color: Colors.white),
+                title: Text("Settings", style: TextStyle(color: Colors.white)),
               ),
-            ListTile(
-                leading: Icon(Icons.settings),
-                title: Text("Settings"),
-                
+              ListTile(
+                leading: Icon(Icons.settings, color: Colors.white),
+                title: Text("Settings", style: TextStyle(color: Colors.white)),
               ),
             ],
           ),
         ),
       ),
-      //
       appBar: AppBar(
-        title: Text(pagesTitle[buttomBarIndex]),
-        backgroundColor: Colors.green,
-        actions: [SvgPicture.asset('assets/icons/facebook.svg')],
+        title: Text(
+          pagesTitle[buttomBarIndex],
+          style: TextStyle(color: Colors.white), // Set the text color to white
+        ),
+        backgroundColor: Color(0xFF0F1929),
+        iconTheme: IconThemeData(color: Colors.white), // Set the icon color to white
       ),
       body: IndexedStack(
         index: buttomBarIndex,
         children: pages,
-      ),//end of appbar
-      //start of bottom bar
+      ),
       bottomNavigationBar: Theme(
-          data: Theme.of(context).copyWith(
-            canvasColor: Colors.green, // Set the background color
-          ),
-          child: BottomNavigationBar(
-            currentIndex: buttomBarIndex,
-            //show the content of differnt 5 icons pages
-            items: [
-              BottomNavigationBarItem(
-                icon: Icon(Icons.person),
-                label: 'Profile',
-              ),
-              BottomNavigationBarItem(
-                icon: Icon(Icons.school),
-                label: 'Learn',
-              ),
-              BottomNavigationBarItem(
-                icon: Icon(Icons.home),
-                label: 'Home',
-              ),
-              BottomNavigationBarItem(
-                icon: Icon(Icons.code),
-                label: 'Try Code',
-              ),
-              BottomNavigationBarItem(
-                icon: Icon(Icons.folder_open),
-                label: 'Problem List',
-              ),
-            ],
-            onTap: (int index) {
-              setState(() {
-                buttomBarIndex = index;
-              });
-
-              // Handle tap on the item at the given index
-              /*  if (index == 0) {
-                  // Navigate to the "/profile" page
-                  Navigator.pushNamed(context, "/aboutus");
-                } else if (index == 1) {
-                  // Navigate to the "learn" screen
-                  Navigator.pushNamed(context, "/homepage");
-                } else if (index == 2) {
-                  // Navigate to the "home" screen
-                  Navigator.pushNamed(context, "/aboutus");
-                } else if (index == 3) {
-                  // Navigate to the "tryCode" screen
-                  Navigator.pushNamed(context, "/homepage");
-                } else if (index == 4) {
-                  // Navigate to the "aboutUs" screen
-                  Navigator.pushNamed(context, "/aboutus");
-                } */
-            },
-          )),
+        data: Theme.of(context).copyWith(
+          canvasColor: Color(0xFF0F1929), // Set the background color
+        ),
+        child: BottomNavigationBar(
+          currentIndex: buttomBarIndex,
+          items: [
+            BottomNavigationBarItem(
+              icon: Icon(Icons.person),
+              label: 'Profile',
+            ),
+            BottomNavigationBarItem(
+              icon: Icon(Icons.school),
+              label: 'Learn',
+            ),
+            BottomNavigationBarItem(
+              icon: Icon(Icons.home),
+              label: 'Home',
+            ),
+            BottomNavigationBarItem(
+              icon: Icon(Icons.code),
+              label: 'Try Code',
+            ),
+            BottomNavigationBarItem(
+              icon: Icon(Icons.folder_open),
+              label: 'Problem List',
+            ),
+          ],
+          onTap: (int index) {
+            setState(() {
+              buttomBarIndex = index;
+            });
+          },
+        ),
+      ),
     );
   }
 }
