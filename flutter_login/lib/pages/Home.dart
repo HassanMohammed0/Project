@@ -12,7 +12,7 @@ class Home extends StatefulWidget {
   State<Home> createState() => _HomeState();
 }
 
-int buttomBarIndex = 2;
+int buttomBarIndex = 4;
 //coling differnt classes for pages in bottom bar
 List<String> pagesTitle = [
   "Profile",

@@ -9,9 +9,9 @@ class CodeTry extends StatefulWidget {
 
 class _CodeTryState extends State<CodeTry> {
   bool showExample = true;
-  String selectedLanguage = 'Dart'; // Default selected language
+  String selectedLanguage = 'Python'; // Default selected language
   final TextEditingController _controller = TextEditingController(
-      text: 'int sumDigits(int number) {\n  //Try your code here\n}'
+    text: 'def sumDigits(number):\n  # Try your code here\n',
   );
   String result = '';
 
@@ -31,26 +31,52 @@ class _CodeTryState extends State<CodeTry> {
     return sum;
   }
 
-  void testCode() {
+  Future<void> testCode() async {
+    setState(() {
+      result = ''; // Clear the result initially
+    });
+
+    showDialog(
+      context: context,
+      barrierDismissible: false,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: Text('Testing your code'),
+          content: Row(
+            children: [
+              CircularProgressIndicator(),
+              SizedBox(width: 16),
+              Text('Please wait...'),
+            ],
+          ),
+        );
+      },
+    );
+
+    await Future.delayed(Duration(seconds: 3));
+
+    Navigator.of(context).pop();
+
     try {
       String code = _controller.text;
 
-      // Regular expression to find the correct implementation
+      // Regular expression to find the correct implementation in Python
       RegExp correctPattern = RegExp(
-          r'int sumDigits\(int number\) \{\s*int sum = 0;\s*int num = number\.abs\(\);\s*while \(num != 0\) \{\s*sum \+= num % 10;\s*num ~/= 10;\s*\}\s*return sum;\s*\}');
+        r'def sumDigits\(number\):\s*sum = 0\s*num = abs\(number\)\s*while num != 0:\s*sum \+= num % 10\s*num //= 10\s*return sum',
+      );
 
       if (correctPattern.hasMatch(code)) {
         setState(() {
-          result = 'Correct: 1, 18, 5';
+          result = 'Test passed';
         });
       } else {
         setState(() {
-          result = 'Try again';
+          result = 'Test failed';
         });
       }
     } catch (e) {
       setState(() {
-        result = 'Try again';
+        result = 'Test failed';
       });
     }
   }
@@ -89,7 +115,7 @@ class _CodeTryState extends State<CodeTry> {
                       value: selectedLanguage,
                       dropdownColor: Colors.black,
                       iconEnabledColor: Colors.white, // Arrow color
-                      items: <String>['JavaScript', 'Python', 'Java', 'C++', 'Dart'].map((String value) {
+                      items: <String>['JavaScript', 'Python', 'Java', 'C++', 'PHP'].map((String value) {
                         return DropdownMenuItem<String>(
                           value: value,
                           child: Text(
@@ -101,6 +127,23 @@ class _CodeTryState extends State<CodeTry> {
                       onChanged: (String? newValue) {
                         setState(() {
                           selectedLanguage = newValue!;
+                          switch (selectedLanguage) {
+                            case 'JavaScript':
+                              _controller.text = 'function sumDigits(number) {\n  // Try your code here\n}';
+                              break;
+                            case 'Python':
+                              _controller.text = 'def sumDigits(number):\n  # Try your code here\n';
+                              break;
+                            case 'Java':
+                              _controller.text = 'int sumDigits(int number) {\n  // Try your code here\n}';
+                              break;
+                            case 'C++':
+                              _controller.text = 'int sumDigits(int number) {\n  // Try your code here\n}';
+                              break;
+                            case 'PHP':
+                              _controller.text = 'function sumDigits(number) {\n  // Try your code here\n}';
+                              break;
+                          }
                         });
                       },
                     ),
@@ -231,7 +274,7 @@ class _CodeTryState extends State<CodeTry> {
                   Text(
                     result,
                     style: TextStyle(
-                      color: result == 'Correct: 1, 18, 5' ? Colors.green : Colors.red,
+                      color: result == 'Test passed' ? Colors.green : Colors.red,
                       fontSize: 16,
                       fontWeight: FontWeight.bold,
                     ),
